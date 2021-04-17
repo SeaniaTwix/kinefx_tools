@@ -1,51 +1,56 @@
 # kinefx tools
-Collection of rigging tools and utils for Houdini kinefx.
+Houdini kinefx용 리깅 툴 및 유틸 모음집.
 
 ## Support
-If you're finding what I'm doing useful in any way, maybe you would like to support me by getting virtual coffee:
+제 작업물이 유용하다고 생각하신다면 가상의 커피를 사서 저를 도와주셨으면 합니다.
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P337EBN)
 
-## Installation
-### Python scripts
-Copy: **create_obj_ctrls.py** to source python directory.
+## 설치 방법
+### Python 스크립트
+복사: **create_obj_ctrls.py** to source python directory.
 [Houdini DOCs - Python scripts location](https://www.sidefx.com/docs/houdini/hom/locations.html)
-or add it to your *sys.path*
+혹은 *sys.path*에 추가하세요
 
-### Digital assets
-Be sure that all digital assets are installed and ready to use before using scripts.
+### 디지털 에셋
+스크립트를 사용하기 전에 모든 디지털 에셋이 설치되어 있고 사용할 준비가 되었는지 확인하세요.
 
 ## HDAs
-There are a few handy HDAs, some of them are required to be installed in order to use them with scripts. 
+몇 가지 유용한 HDA가 있으며, 스크립트와 함께 사용하려면 몇 가지를 설치해야 합니다.
 
-### Controls library (controls_library::1.0) (OBJ)
-Generates different shapes of controls as geometry which can be used in conjunction with **Attach Control Geometry SOP**
+### Controls 라이브러리 (controls_library::1.0) (OBJ)
+**Attach Control Geometry SOP**와 함께 사용할 수 있는 다양한 모양의 컨트롤을 형상으로 생성합니다.
 
-required by: **create_obj_ctrls.py**
+다음이 필요로 함: **create_obj_ctrls.py**
 
 ---
 
 * ### Attach Control Geometry (kinefx::attach_geometry_control::1.2) (SOP)
-   Modified attach control geometry sop. Added extra functionality to make the process of creating controls more "encapsulated". You can assign individual colors for controls, manipulate the scale of controls and their offsets directly from this one node.  
+   부착 제어 지오메트리가 수정되었습니다. 컨트롤을 만드는 프로세스를 "캡슐화"하기 위해 추가 기능을 추가했습니다.
+   이 한 노드에서 직접 컨트롤에 대한 개별 색상을 할당하고 컨트롤의 배율 및 오프셋을 조작할 수 있습니다.  
    ![attach_geometry_01](images/attach_geometry_01.PNG)
 
-   Instead of connecting a "library" of controls as input, you just can now use the node path:
+   이제 컨트롤의 "라이브러리"를 입력으로 연결하는 대신 노드 경로를 사용할 수 있습니다:
    ![attach_geometry_02](images/attach_geometry_02.PNG)
 
-   In case if your skeleton for these particular controls has been mirrored by the scale you need to set **Mirrored by scale** -> **ON** and specify at which Axis controls have been mirrored. For example, if your controls been mirrored along X-Axis, set the mirror scale to {-1.0, 1.0, 1.0}
+   이러한 특정 컨트롤에 대한 골격이 스케일로 미러링된 경우 **스케일로 미러링됨**-> **ON**을 설정하고 미러링된 축 컨트롤을 지정해야 합니다.
+   예를 들어, X축을 따라 컨트롤이 미러링된 경우, 미러 스케일을 {-1.0, 1.0, 1.0}으로 설정해야 합니다.  
    ![attach_geometry_ms_03](images/attach_geometry_ms_03.PNG)
 
    You can specify which channels will be locked after creating controls by setting **Translate/Rotate/Scale Lock** parameter
+   **Translate/Rotate/Scale Lock** 파라미터를 설정하여 컨트롤을 생성한 후 잠글 채널을 지정할 수 있습니다.
 
-   **Control Folder** Let you specify the name of the folder into which controls will be promoted on your rig HDA. It's a second step to promote controls to your HDA, so filling that parameter is optional. 
+   **Control Folder** 올바른 HDA에서 컨트롤을 승격할 폴더의 이름을 지정할 수 있습니다. HDA로 제어를 승격하는 두 번째 단계이므로 해당 매개 변수를 채우는 것은 선택 사항입니다.
 
    Also, this node creates extra attributes that are quired during the creation of *object level* controls. Check step by step tutorial. Setting **Xray** parameter **ON** will make *object level* controls automatically set to Xray.
+   또한, 이 노드는 *object level* 컨트롤을 만드는 동안 필요한 추가 속성을 만듭니다. 단계별 자습서를 확인합니다.
+   **Xray** 파라미터를 **ON**으로 설정하면 *object level* 컨트롤이 자동으로 Xray로 설정됩니다.
 
-   required by: **create_obj_ctrls.py**
+   다음이 필요로 함: **create_obj_ctrls.py**
 
 ---
 
 * ### rig control 1.0 (rig_control::1.0) (OBJ)
-   Node used directly as rig control. Allow for dynamic change of control shape, which is loaded from the controls library. *Thickness* parameter adds easy control of how thick control should be displayed. 
+   rig control로 직접 사용되는 노드입니다. 제어 라이브러리에서 로드되는 제어 셰이프의 동적 변경을 허용합니다. *Thickness* 파라미터는 두께 조절의 표시 방법을 쉽게 제어합니다. 
    ![control_node_01](images/control_node_01.PNG)
 
    This node will be should be used in conjunction with *rig_zero* node as its parent (zero group). 
